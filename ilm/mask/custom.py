@@ -57,11 +57,9 @@ class MaskProperNoun(MaskFn):
 
   def mask(self, doc):
     from nltk import pos_tag
-    masked_spans = []
     toks = word_tokenize(doc)
     toks_offsets = tokens_offsets(doc, toks)
     toks_pos = pos_tag(toks)
-    for t, off, (_, pos) in zip(toks, toks_offsets, toks_pos):
-      if pos == 'NNP' and random.random() < self.p:
-        masked_spans.append((MaskProperNounType.PROPER_NOUN, off, len(t)))
-    return masked_spans
+    return [(MaskProperNounType.PROPER_NOUN, off, len(t))
+            for t, off, (_, pos) in zip(toks, toks_offsets, toks_pos)
+            if pos == 'NNP' and random.random() < self.p]

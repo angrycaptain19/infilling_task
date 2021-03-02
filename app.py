@@ -53,7 +53,7 @@ def infilling_word():
     mask = request.form['mask']
     mask = mask.split(',')
     for each_mask in mask:
-        if each_mask != 'word' and each_mask !='sent':
+        if each_mask not in ['word', 'sent']:
             return error_handle(2, "LỖI, KHÔNG ĐÚNG ĐỊNH DẠNG MASK", "ERROR_MASK")
 
     if order.isdigit() == False:

@@ -95,7 +95,7 @@ class TestTrainIlm(unittest.TestCase):
     }
 
     tasks = list(Task)
-    
+
     doc = 'She ate cereal for breakfast this morning'
     char_masks = [[
         (word_type, doc.index('cereal'), len('cereal')),
@@ -171,7 +171,7 @@ class TestTrainIlm(unittest.TestCase):
             256)
         for k, c in {TargetType(k):v for k, v in zip(*np.unique(tts, return_counts=True))}.items():
           tt_to_count[k] += c
-        num_masks_total += sum([len(c) for c in char_masks])
+        num_masks_total += sum(len(c) for c in char_masks)
       print('-' * 80)
       print(task)
       print(num_masks_total)

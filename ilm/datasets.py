@@ -67,21 +67,14 @@ def arxiv_cs_abstracts(split='train', data_dir=None, attrs=['title', 'authors', 
   for r in raw:
     aid, created, updated, categories, title, authors, abstract = r.split('\n', 6)
 
-    a = []
-    for attr_name in attrs:
-      a.append(eval(attr_name))
+    a = [eval(attr_name) for attr_name in attrs]
     a = '\n'.join(a)
 
-    if created.startswith('2018'):
-      if split == 'valid':
-        abstracts.append(a)
-    elif created.startswith('2019'):
-      if split == 'test':
-        abstracts.append(a)
-    else:
-      if split == 'train':
-        abstracts.append(a)
-
+    if (created.startswith('2018') and split == 'valid'
+        or not created.startswith('2018') and created.startswith('2019')
+        and split == 'test' or not created.startswith('2018')
+        and not created.startswith('2019') and split == 'train'):
+      abstracts.append(a)
   return abstracts
 
 
