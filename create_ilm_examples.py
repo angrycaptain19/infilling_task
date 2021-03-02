@@ -98,7 +98,7 @@ if __name__ == '__main__':
   import sys
 
   from tqdm import tqdm
-  
+
   from ilm.datasets import Dataset, get_dataset
   import ilm.mask
   from ilm.mask.util import mask_cls_str_to_type
@@ -138,7 +138,7 @@ if __name__ == '__main__':
       min_masked_spans_per_example=None,
       max_masked_spans_per_example=None,
       ensure_unique_examples=True)
-  
+
   args = parser.parse_args()
 
   # Set seed
@@ -159,11 +159,7 @@ if __name__ == '__main__':
 
   # Create mask function
   mask_type = mask_cls_str_to_type(args.mask_cls)
-  if args.mask_arg0 is None:
-    masker = mask_type()
-  else:
-    masker = mask_type(args.mask_arg0)
-
+  masker = mask_type() if args.mask_arg0 is None else mask_type(args.mask_arg0)
   # Create examples
   masked_data, error_to_count = randomly_mask_dataset(
       docs,
@@ -180,7 +176,7 @@ if __name__ == '__main__':
 
   # Print stats
   num_documents = len(docs)
-  num_masked_examples = sum([len(exs) for d, exs in masked_data])
+  num_masked_examples = sum(len(exs) for d, exs in masked_data)
   num_masked_examples_expected = len(docs) * args.num_examples_per_document
   print('Processed {} documents and created {} examples per document (expected {})'.format(
     num_documents,
@@ -196,7 +192,7 @@ if __name__ == '__main__':
   for doc, char_masks in masked_data:
     num_chars_total += len(doc) * len(char_masks)
     for masked_spans in char_masks:
-      num_chars_masked += sum([l for _, _, l in masked_spans])
+      num_chars_masked += sum(l for _, _, l in masked_spans)
   print('Mask rate (characters): {:.4f}'.format(num_chars_masked / num_chars_total))
 
   # Save examples

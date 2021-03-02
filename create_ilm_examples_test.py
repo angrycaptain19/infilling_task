@@ -32,7 +32,7 @@ class TestCreateIlmExamples(unittest.TestCase):
         random_sample_down_to_max=False)
 
     self.assertEqual(len(masked_data), 100)
-    num_examples = sum([len(exs) for d, exs in masked_data])
+    num_examples = sum(len(exs) for d, exs in masked_data)
     self.assertEqual(num_examples, 720)
     for i, (d, exs) in enumerate(masked_data):
       for j, masked_spans in enumerate(exs):

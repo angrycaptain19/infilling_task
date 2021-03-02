@@ -8,7 +8,7 @@ def word_tokenize(x):
   x_tokens = nltk_word_tokenize(x)
   x_tokens_offsets = tokens_offsets(x, x_tokens)
   for i, off in enumerate(x_tokens_offsets):
-    if off is None and '\"' in x and (x_tokens[i] == '``' or x_tokens[i] == '\'\''):
+    if off is None and '\"' in x and x_tokens[i] in ['``', '\'\'']:
       x_tokens[i] = '\"'
   return x_tokens
 

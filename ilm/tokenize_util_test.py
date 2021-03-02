@@ -50,7 +50,7 @@ class TestTokenizeUtil(unittest.TestCase):
       self.assertEqual(ex_tokens, expected_ex_tokens)
 
       ex_tokens_off = tokens_offsets(ex, ex_tokens)
-      self.assertTrue(all([t_off is not None for t_off in ex_tokens_off]))
+      self.assertTrue(all(t_off is not None for t_off in ex_tokens_off))
 
       ex_ids = tokens_to_ids(ex_tokens)
       self.assertEqual(ex_ids, expected_ex_ids)
@@ -68,7 +68,7 @@ class TestTokenizeUtil(unittest.TestCase):
       s_tokens = tokenize(s)
 
       s_tokens_off = tokens_offsets(s, s_tokens)
-      self.assertTrue(all([t_off is not None for t_off in s_tokens_off]))
+      self.assertTrue(all(t_off is not None for t_off in s_tokens_off))
 
       s_ids = tokens_to_ids(s_tokens)
       self.assertEqual(len(s_tokens), len(s_ids))
@@ -119,8 +119,8 @@ class TestTokenizeUtil(unittest.TestCase):
       self.assertEqual(ex_tokens_res, expected_res)
 
       if None not in expected_off:
-        tok_len = sum([len(t) for t in ex_tokens])
-        res_len = sum([len(r) for r in ex_tokens_res])
+        tok_len = sum(len(t) for t in ex_tokens)
+        res_len = sum(len(r) for r in ex_tokens_res)
         self.assertEqual(tok_len + res_len, len(ex))
 
   def test_align_charspan_to_tokenspan(self):
